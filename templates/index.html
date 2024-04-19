@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+
+{% block body %}
+<div class="container mt-5">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    {% for model in models %}
+    <div class="col">
+      <div class="card">
+        <img src="../static/images/{{ model }}.jpeg" class="card-img-top" alt="{{ models[model].title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ models[model].title }}</h5>
+          <p class="card-text">{{ models[model].description }}</p>
+        </div>
+        <div class="card-footer">
+          <a href="/predictor/{{ model }}" class="btn btn-primary">Predict Now</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}

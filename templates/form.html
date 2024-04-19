@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center mb-4">{{ models[name].title }}</h1>
+      <form action="/predictor/{{ name }}" method="post">
+        {% for attribute in models[name].attributes %}
+        <div class="mb-3">
+          <label for="{{ attribute }}" class="form-label">{{ attribute }}</label>
+          {% if attribute == 'Gender' %}
+          <select class="form-select" aria-label="Select Gender" name="{{ attribute }}" id="{{ attribute }}">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+          </select>
+          {% elif attribute in categorical_columns %}
+          <select class="form-select" aria-label="Select Option" name="{{ attribute }}" id="{{ attribute }}">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          {% else %}
+          <input type="text" class="form-control" id="{{ attribute }}" name="{{ attribute }}" required>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <div class="mb-3">
+          <button type="submit" class="btn btn-danger">Predict</button>
+        </div>
+      </form>
+      {% if prediction == 0 or prediction == 2 %}
+      <div class="alert alert-success" role="alert">
+        <h2 class="text-center">{{ models[name].result_no }}</h2>
+      </div>
+      {% endif %}
+      {% if prediction == 1 %}
+      <div class="alert alert-danger" role="alert">
+        <h2 class="text-center">{{ models[name].result_yes }}</h2>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock body %}
