@@ -20,7 +20,7 @@ def predictors(name):
         for attribute in models[name].attributes:
             arr.append(float(request.form[attribute]))
 
-        loaded_model = pickle.load(open(f"./prediction_models/{name}_model.sav", 'rb'))
+        loaded_model = pickle.load(open(f"./prediction_models/{name}.sav", 'rb'))
         input_data = np.asarray(arr)
         input_data_reshaped = input_data.reshape(1, -1)
         prediction = loaded_model.predict(input_data_reshaped)
